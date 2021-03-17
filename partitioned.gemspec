@@ -17,12 +17,9 @@ Gem::Specification.new do |s|
   s.require_path   = 'lib'
   s.homepage       = 'http://github.com/fiksu/partitioned'
 
-  s.add_development_dependency "jquery-rails"
-
   s.add_dependency 'pg'
   s.add_dependency 'bulk_data_methods'
-  s.add_dependency 'activerecord-redshift-adapter'
-  s.add_dependency 'activerecord', '~> 4.1.13'
-  s.add_development_dependency 'rails', '~> 4.1.13'
+  s.add_dependency 'activerecord'
+  s.add_development_dependency 'rails'
   s.add_development_dependency 'rspec-rails'
 end
