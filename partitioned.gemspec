@@ -17,8 +17,6 @@ Gem::Specification.new do |s|
   s.require_path   = 'lib'
   s.homepage       = 'http://github.com/fiksu/partitioned'
 
-  s.add_development_dependency "jquery-rails"
-
   s.add_dependency 'pg'
   s.add_dependency 'bulk_data_methods'
   s.add_dependency 'activerecord'
