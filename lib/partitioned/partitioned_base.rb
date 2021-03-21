@@ -158,8 +158,10 @@ module Partitioned
     # @return [Hash] the scoping
     def self.from_partition(*partition_key_values)
       table_alias_name = partition_table_alias_name(*partition_key_values)
-      return ActiveRecord::Relation.new(self, self.arel_table_from_key_values(partition_key_values, table_alias_name))
+      table = self.arel_table_from_key_values(partition_key_values, table_alias_name)
+      return ActiveRecord::Relation.new(self, table: table)
     end
+
 
     #
     # This scope is used to target the
