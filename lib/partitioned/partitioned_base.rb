@@ -112,8 +112,8 @@ module Partitioned
       new_arel_table = @arel_tables[[partition_key_values, as]]
       
       unless new_arel_table
-        arel_engine_hash = {:engine => self.arel_engine, :as => as}
-        new_arel_table = Arel::Table.new(self.partition_table_name(*partition_key_values), arel_engine_hash)
+        new_arel_table = self.arel_table.dup
+        new_arel_table.name = self.partition_table_name(*partition_key_values)
         @arel_tables[[partition_key_values, as]] = new_arel_table
       end
 
