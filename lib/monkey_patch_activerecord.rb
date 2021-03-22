@@ -116,7 +116,7 @@ module ActiveRecord
   end # module Persistence
   class Relation
 
-    attr_accessor :skip_preloading_value, :implicit_order_column
+    attr_accessor :skip_preloading_value#, :implicit_order_column
     
   end # class Relation
 end # module ActiveRecord
