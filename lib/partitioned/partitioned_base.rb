@@ -119,6 +119,19 @@ module Partitioned
 
       return new_arel_table
     end
+
+    def self.predicate_builder_from_arel_table(arel_table)
+        @predicate_builders ||= {}
+        pb = @predicate_builders[arel_table.name]
+        
+        unless pb
+          tm = ActiveRecord::TableMetadata.new(self,arel_table)
+          pb = ActiveRecord::PredicateBuilder.new(tm)
+          @predicate_builders[arel_table.name] = pb
+        end
+        
+        return pb
+    end
     
     #
     # In activerecord 3.0 we need to supply an Arel::Table for the key value(s) used
@@ -149,7 +162,7 @@ module Partitioned
     # parent table (so activerecord can generally work with it)
     #
     # Use as:
-    #
+    
     #   Foo.from_partition(KEY).first
     #
     # where KEY is the key value(s) used as the check constraint on Foo's table.
@@ -159,7 +172,8 @@ module Partitioned
     def self.from_partition(*partition_key_values)
       table_alias_name = partition_table_alias_name(*partition_key_values)
       table = self.arel_table_from_key_values(partition_key_values, table_alias_name)
-      return ActiveRecord::Relation.new(self, table: table)
+      predicate_builder = predicate_builder_from_arel_table(table)
+      return ActiveRecord::Relation.create(self, table: table, predicate_builder: predicate_builder)
     end
 
 

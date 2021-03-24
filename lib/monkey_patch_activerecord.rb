@@ -35,7 +35,6 @@ module ActiveRecord
           im = tmp_arel_table.compile_insert(connection.empty_insert_statement_value(primary_key))
           im.into tmp_arel_table
         else
-          #byebug
           im = tmp_arel_table.compile_insert(_substitute_values(values,tmp_arel_table))
         end
 
@@ -114,9 +113,4 @@ module ActiveRecord
     
 
   end # module Persistence
-  # class Relation
-
-  #   attr_accessor :skip_preloading_value, :implicit_order_column
-    
-  # end # class Relation
 end # module ActiveRecord
