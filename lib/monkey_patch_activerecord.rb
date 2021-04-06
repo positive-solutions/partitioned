@@ -78,7 +78,7 @@ module ActiveRecord
       self.class._update_record(
         attributes_with_values(attribute_names),
         {@primary_key => id_in_database},
-        self.respond_to?(:dynamic_arel_table) ? self.dynamic_arel_table(self.class.table_name) : nil
+        self.respond_to?(:dynamic_arel_table) ? self.dynamic_arel_table : nil
       )
       #end monkey patch
     end
@@ -89,7 +89,7 @@ module ActiveRecord
         #begin monkey patch
         new_id = self.class._insert_record(
           attributes_with_values(attribute_names),
-          self.respond_to?(:dynamic_arel_table) ? self.dynamic_arel_table(self.class.table_name) : nil
+          self.respond_to?(:dynamic_arel_table) ? self.dynamic_arel_table : nil
         )
         #end monkey patch
         self.id ||= new_id if @primary_key
@@ -106,7 +106,7 @@ module ActiveRecord
       #begin monkey patch
       self.class._delete_record(
         {@primary_key => id_in_database},
-        self.respond_to?(:dynamic_arel_table) ? self.dynamic_arel_table(self.class.table_name) : nil
+        self.respond_to?(:dynamic_arel_table) ? self.dynamic_arel_table : nil
       )
       #end monkey patch
     end
